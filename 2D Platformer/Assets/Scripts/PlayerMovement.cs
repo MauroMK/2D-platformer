@@ -81,6 +81,11 @@ public class PlayerMovement : MonoBehaviour
             isJumping = false;
             anim.SetBool("jump", false);
         }
+
+        if(collision.gameObject.tag == "Spike")
+        {
+            Destroy(gameObject);
+        }
     }
 
     // Detecta qualquer momento que o personagem parou de colidir com o objeto
