@@ -87,6 +87,12 @@ public class PlayerMovement : MonoBehaviour
             GameController.instance.ShowGameOver();
             Destroy(gameObject);
         }
+
+        if(collision.gameObject.tag == "Saw")
+        {
+            GameController.instance.ShowGameOver();
+            Destroy(gameObject);
+        }
     }
 
     // Detecta qualquer momento que o personagem parou de colidir com o objeto
