@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rig;
     private Animator anim;
 
+    private bool isBlowing;
 
     void Start()
     {
@@ -53,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Jump()
     {
-        if(Input.GetButtonDown("Jump"))
+        if(Input.GetButtonDown("Jump") && !isBlowing)
         {
             if(!isJumping)
             {
@@ -101,6 +102,23 @@ public class PlayerMovement : MonoBehaviour
         if(collision.gameObject.layer == 6)
         {
             isJumping = true;
+        }
+    }
+
+    // On trigger stay = quando o personagem está constante colisão com o outro objeto
+    void OnTriggerStay2D(Collider2D collider)
+    {
+        if(collider.gameObject.layer == 9)
+        {
+            isBlowing = true;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collider)
+    {
+        if(collider.gameObject.layer == 9)
+        {
+            isBlowing = false;
         }
     }
 }
