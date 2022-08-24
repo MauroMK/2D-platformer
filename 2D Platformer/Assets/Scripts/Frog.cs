@@ -49,6 +49,7 @@ public class Frog : MonoBehaviour
         }
     }
 
+    bool playerDestroyed = false;
     void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "Player")
@@ -56,8 +57,8 @@ public class Frog : MonoBehaviour
             // Ta checando se o personagem ta batendo na cabeça do inimigo
             // Ta subtraindo o local que o personagem bateu (Ponto Y) e subtraindo pelo headpoint
             float height = collision.contacts[0].point.y - headPoint.position.y;
-
-            if(height > 0)
+            
+            if(height > 0 && !playerDestroyed)
             {
                 // Da um empulso pro player ao acertar a cabeça do inimigo, o inimigo para a movimentação, ativa a animação,
                 // Seta os colisores para falso (pra nao poder acertar ele) 
@@ -68,7 +69,13 @@ public class Frog : MonoBehaviour
                 boxCollider2D.enabled = false;
                 circleCollider2D.enabled = false;
                 rig.bodyType = RigidbodyType2D.Kinematic;
+
                 Destroy(gameObject, 0.33f);
+            }else
+            {
+                playerDestroyed = true;
+                GameController.instance.ShowGameOver();
+                Destroy(collision.gameObject);
             }
         }
     }
