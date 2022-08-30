@@ -22,6 +22,11 @@ public class GameController : MonoBehaviour
         instance = this;
     }
 
+    public void NewGame(string lvlName)
+    {
+        SceneManager.LoadScene(lvlName);
+    }
+
     public void UpdateScoreText()
     {
         textScore.text = totalScore.ToString();
